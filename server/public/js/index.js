@@ -8876,131 +8876,71 @@
 
 	'use strict';
 
-	var _templateObject = _taggedTemplateLiteral(['Hello ', '; Infomation: ', ''], ['Hello ', '; Infomation: ', '']),
-	    _templateObject2 = _taggedTemplateLiteral(['Hi\n', '!'], ['Hi\\n', '!']);
-
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-	// JavaScript内部，字符以UTF-16的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode码点大于0xFFFF的字符），JavaScript会认为它们是两个字符。
-	// http://www.ruanyifeng.com/blog/2014/12/unicode.html
-
 	{
-	  // 字符的 Unicode 表示法
-	  console.log('a', 'a');
-	  console.log('\u20BB7');
-	  console.log('\uD842\uDFB7');
+	  // 二进制
+	  console.log(503 === 503);
+	  // 八进制
+	  console.log(503 === 503);
 	}
 
 	{
-	  // JavaScript对于那些需要4个字节储存的字符（Unicode码点大于0xFFFF的字符），JavaScript会认为它们是两个字符。
-	  var s = "𠮷";
-	  console.log('length', s.length);
-	  console.log('0', s.charAt(0));
-	  console.log('1', s.charAt(1));
-	  console.log('at0', s.charCodeAt(0));
-	  console.log('at1', s.charCodeAt(1));
-
-	  var x = '\uD842\uDFB7a';
-	  console.log('char', x); //吉
-	  console.log('length', x.length);
-	  console.log('code0', x.codePointAt(0)); //134071
-	  console.log('code0-16', x.codePointAt(0).toString(16)); //20bb7
-	  console.log('code-1', x.codePointAt(1)); //57271 第二个字符（后两个字节）
-	  console.log('code-2', x.codePointAt(2)); //a
+	  console.log('15', Number.isFinite(15)); // true
+	  console.log('0.8', Number.isFinite(0.8)); // true
+	  console.log('NaN', Number.isFinite(NaN)); // false
+	  console.log('Infinity', Number.isFinite(Infinity)); // false
+	  console.log('-Infinity', Number.isFinite(-Infinity)); // false
+	  console.log('1/0', Number.isFinite(1 / 0)); // true
+	  console.log('foo', Number.isFinite('foo')); // false
+	  console.log('NaN', Number.isNaN(NaN)); //true
+	  console.log('t/0', Number.isNaN('t' / 0)); //false
 	}
 
 	{
-	  // ES5提供String.fromCharCode方法，用于从码点返回对应字符，但是这个方法不能识别32位的UTF-16字符（Unicode编号大于0xFFFF）。
-	  // ES6提供了String.fromCodePoint方法，可以识别0xFFFF的字符，弥补了String.fromCharCode方法的不足。在作用上，正好与codePointAt方法相反。
-	  console.log(String.fromCharCode("0x20bb7")); //ஷ
-	  console.log(String.fromCodePoint("0x20bb7")); //吉
+	  console.log('25', Number.isInteger(25)); //true
+	  console.log('25.0', Number.isInteger(25.0)); // true
+	  console.log('25.1', Number.isInteger(25.1)); // false
+	  console.log('15', Number.isInteger("15")); // false
+	  console.log('true', Number.isInteger(true)); // false
 	}
 
 	{
-	  // 字符串的遍历器接口
-	  // let text = String.fromCodePoint("0x20bb7"); //吉
-	  var text = '\uD842\uDFB7abc';
-	  for (var i = 0; i < text.length; i++) {
-	    console.log('es5', text[i]);
-	  }
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
-
-	  try {
-	    for (var _iterator = text[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var codePoint = _step.value;
-
-	      console.log('es6', codePoint); //𠮷
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
+	  // JavaScript能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。
+	  console.log('2-53', Math.pow(2, 53));
+	  console.log(Math.pow(2, 53) === Math.pow(2, 53) + 1);
+	  console.log(Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER);
 	}
 
 	{
-	  // 传统上，JavaScript只有indexOf方法，可以用来确定一个字符串是否包含在另一个字符串中。ES6又提供了三种新方法。
-	  // includes()：返回布尔值，表示是否找到了参数字符串。
-	  // startsWith()：返回布尔值，表示参数字符串是否在源字符串的头部。
-	  // endsWith()：返回布尔值，表示参数字符串是否在源字符串的尾部。
-	  var str = "string";
-	  console.log('includes', str.includes("r")); //True
-	  console.log('startsWith', str.startsWith("str")); //True
-	  console.log('endsWith', str.endsWith("g")); //True
+	  // 里面一定是数，判断是不是安全
+	  console.log('a', Number.isSafeInteger('a'));
+	  console.log('13', Number.isSafeInteger(13));
 	}
 
 	{
-	  // repeat方法返回一个新字符串，表示将原字符串重复n次。
-	  var _str = "abc";
-	  console.log(_str.repeat(2)); //abcabc
+	  // Math.trunc方法用于去除一个数的小数部分，返回整数部分。
+	  console.log(4.1, Math.trunc(4.1));
+	  console.log(4.9, Math.trunc(4.9));
+	  console.log(-4.1, Math.trunc(-4.1));
+	  console.log(-4.9, Math.trunc(-4.9));
+	  console.log(-0.1234, Math.trunc(-0.1234));
 	}
 
 	{
-	  // padStart用于头部补全，padEnd用于尾部补全。
-	  // 两个参数：1个是最小字符串长度；另一个是补全的字符串
-	  console.log('1'.padStart(2, '0'));
-	  console.log('a'.padEnd(2, '0'));
+	  // Math.sign方法用来判断一个数到底是正数、负数、还是零。
+	  console.log('-5', Math.sign(-5)); // -1
+	  console.log('5', Math.sign(5)); // +1
+	  console.log('0', Math.sign(0)); // +0
+	  console.log('-0', Math.sign(-0)); // -0
+	  console.log('Nan', Math.sign(NaN)); // NaN
+	  console.log('foo', Math.sign('foo')); // NaN
 	}
 
 	{
-	  // 模板字符串
-	  var name = "Oliver"; //变量
-	  var info = 'hello world\n  welcome you'; //多行字符串
-	  console.log('hello ' + name, info); //嵌套变量，输出多行字符串
-	}
-
-	{
-	  var abc = function abc(s, v1, v2) {
-	    console.log(s); //["Hello ", "; Infomation: ", ""]
-	    console.log(v1); //Oliver
-	    console.log(v2); //welcome to use the system.
-	  };
-	  // “标签模板”的一个重要应用，就是过滤HTML字符串，防止用户输入恶意内容。
-	  // 标签模板的另一个应用，就是多语言转换（国际化处理）。
-
-
-	  // 标签模板
-	  var user = {
-	    name: "net",
-	    info: "welcome to use the system."
-	  };
-	  abc(_templateObject, user.name, user.info);
-	}
-
-	{
-	  console.log(String.raw(_templateObject2, 2 + 3));
-	  console.log('Hi\n' + (2 + 3) + '!');
+	  // Math.cbrt方法用于计算一个数的立方根
+	  console.log('-1', Math.cbrt(-1)); // -1
+	  console.log('0', Math.cbrt(0)); // 0
+	  console.log('1', Math.cbrt(1)); // 1
+	  console.log('2', Math.cbrt(2)); // 1.2599210498948734
 	}
 
 /***/ }
