@@ -8879,12 +8879,11 @@
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	{
-	  var arr = Array.of(3, 7, 9, 14);
-	  console.log(arr);
-	  var len = Array.of(3).length;
-	  console.log('len=' + len);
+	  var arr = Array.of(3, 4, 7, 9, 11);
+	  console.log('arr=', arr);
+
 	  var empty = Array.of();
-	  console.log(empty);
+	  console.log('empty', empty);
 	}
 
 	{
@@ -8893,18 +8892,15 @@
 	  pArr.forEach(function (item) {
 	    console.log(item.textContent);
 	  });
-	  console.log(Array.from(['a', 'b', 'c']));
 
-	  // Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组
-	  console.log(Array.from([1, 3, 5], function (x) {
-	    return x * 2;
+	  console.log(Array.from([1, 3, 5], function (item) {
+	    return item * 2;
 	  }));
 	}
 
 	{
-	  // fill方法使用给定值，填充一个数组
 	  console.log('fill-7', [1, 'a', undefined].fill(7));
-	  console.log('fill-123', ['a', 'b', 'c'].fill(7, 1, 3));
+	  console.log('fill,pos', ['a', 'b', 'c'].fill(7, 1, 3));
 	}
 
 	{
@@ -8938,10 +8934,10 @@
 	  var _iteratorError2 = undefined;
 
 	  try {
-	    for (var _iterator2 = ['text', 'html', 'values'].values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	    for (var _iterator2 = ['1', 'c', 'ks'].values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 	      var value = _step2.value;
 
-	      console.log(value);
+	      console.log('values', value);
 	    }
 	  } catch (err) {
 	    _didIteratorError2 = true;
@@ -8963,12 +8959,12 @@
 	  var _iteratorError3 = undefined;
 
 	  try {
-	    for (var _iterator3 = ['a', 'b'].entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	    for (var _iterator3 = ['1', 'c', 'ks'].entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
 	      var _step3$value = _slicedToArray(_step3.value, 2),
 	          _index = _step3$value[0],
-	          elem = _step3$value[1];
+	          _value = _step3$value[1];
 
-	      console.log(_index, elem);
+	      console.log('values', _index, _value);
 	    }
 	  } catch (err) {
 	    _didIteratorError3 = true;
@@ -8987,26 +8983,21 @@
 	}
 
 	{
-	  // 数组实例的copyWithin方法，在当前数组内部，将指定位置的成员复制到其他位置（会覆盖原有成员）
 	  console.log([1, 2, 3, 4, 5].copyWithin(0, 3, 4));
 	}
 
 	{
-	  // 数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，
-	  // 直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined
-	  //
-	  var _arr = [1, 2, 3, 4, 5, 6].find(function (item) {
+	  console.log([1, 2, 3, 4, 5, 6].find(function (item) {
 	    return item > 3;
-	  });
-	  var arr2 = [1, 2, 3, 4, 5, 6].findIndex(function (item) {
+	  }));
+	  console.log([1, 2, 3, 4, 5, 6].findIndex(function (item) {
 	    return item > 3;
-	  });
-	  console.log(_arr, arr2);
+	  }));
 	}
 
 	{
 	  console.log('number', [1, 2, NaN].includes(1));
-	  console.log('nan', [1, 2, NaN].includes(NaN));
+	  console.log('number', [1, 2, NaN].includes(NaN));
 	}
 
 /***/ }
