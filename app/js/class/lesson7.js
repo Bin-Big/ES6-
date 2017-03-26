@@ -43,6 +43,12 @@
 }
 
 {
+  // 扩展运算符（spread）是三个点（...）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列
+  console.log(...[1, 2, 3])
+  console.log(1, ...[2, 3, 4], 5)
+}
+
+{
   // 箭头函数
   let arrow = v => v*2;
   console.log(arrow.name);
