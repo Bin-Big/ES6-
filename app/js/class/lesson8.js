@@ -46,6 +46,11 @@
   // 只拷贝源对象的自身属性（不拷贝继承属性），
   // 也不拷贝不可枚举的属性（enumerable: false）
   console.log(Object.assign({a:'a'},{b:'b'}));
+
+  let test={k:123,o:456};
+  for (let [key, value] of Object.entries(test)) {
+    console.log([key, value]); 
+  }
 }
 
 {
