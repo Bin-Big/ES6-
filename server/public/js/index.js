@@ -66,64 +66,48 @@
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	{
-	  // 简洁表示法
-	  var o = 1;
-	  var k = 2;
-	  var es5 = {
-	    o: o,
-	    k: k
-	  };
-	  var es6 = {
-	    o: o,
-	    k: k
-	  };
-	  console.log(es5, es6);
+	  // 定义
+	  var a1 = Symbol();
+	  var a2 = Symbol.for('a2');
+	  var a3 = Symbol();
+	  var a4 = Symbol.for('a2');
 
-	  var es5_method = {
-	    hello: function hello() {
-	      console.log('hello');
-	    }
-	  };
-	  var es6_method = {
-	    hello: function hello() {
-	      console.log('hello');
-	    }
-	  };
-	  console.log(es5_method.hello(), es6_method.hello());
+	  console.log(a1 === a3, a2 === a4);
+	  // 作用
 	}
 
 	{
-	  // 属性表达式
-	  var a = 'b';
-	  var es5_obj = {
-	    a: 'c',
-	    b: 'c'
-	  };
+	  var _a = Symbol();
+	  var _a2 = Symbol.for('a2');
+	  var _a3 = Symbol();
+	  var _a4 = Symbol.for('a2');
 
-	  var es6_obj = _defineProperty({}, a, 'c');
-
-	  console.log(es5_obj, es6_obj);
+	  console.log({ a1: Symbol.keyFor(_a), a2: Symbol.keyFor(_a2), a3: Symbol.keyFor(_a3), a4: Symbol.keyFor(_a4) });
 	}
 
 	{
-	  // 新增API
-	  console.log('字符串', Object.is('abc', 'abc'), 'abc' === 'abc');
-	  console.log('数组', Object.is([], []), [] === []);
+	  var _obj;
 
-	  console.log('拷贝', Object.assign({ a: 'a' }, { b: 'b' }));
+	  // 使用for...in和for...of都无法遍历到Symbol值的属性，Symbol值作为对象的属性名，
+	  // 也无法通过Object.keys()、Object.getOwnPropertyNames()来获取了。
+	  // 但是，不同担心，这种平常的需求肯定是会有解决办法的。
+	  // 我们可以使用Object.getOwnPropertySymbols()方法获取一个对象上的Symbol属性名。
+	  // 也可以使用Reflect.ownKeys()返回所有类型的属性名，包括常规属性名和 Symbol属性名
+	  var _a5 = Symbol.for('a1');
+	  var _a6 = Symbol('a2');
+	  var obj = (_obj = {}, _defineProperty(_obj, _a5, 123), _defineProperty(_obj, _a6, 890), _defineProperty(_obj, 'b', 345), _defineProperty(_obj, 'c', 567), _obj);
 
-	  var test = { k: 123, o: 456 };
 	  var _iteratorNormalCompletion = true;
 	  var _didIteratorError = false;
 	  var _iteratorError = undefined;
 
 	  try {
-	    for (var _iterator = Object.entries(test)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	    for (var _iterator = Object.entries(obj)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	      var _step$value = _slicedToArray(_step.value, 2),
 	          key = _step$value[0],
 	          value = _step$value[1];
 
-	      console.log([key, value]);
+	      console.log(key, value);
 	    }
 	  } catch (err) {
 	    _didIteratorError = true;
@@ -139,15 +123,14 @@
 	      }
 	    }
 	  }
-	}
 
-	{
-	  // 扩展运算符
-	  // let {a,b,...c}={a:'test',b:'kill',c:'ddd',d:'ccc'};
-	  // c={
-	  //   c:'ddd',
-	  //   d:'ccc'
-	  // }
+	  Object.getOwnPropertySymbols(obj).forEach(function (item) {
+	    console.log(obj[item]);
+	  });
+
+	  Reflect.ownKeys(obj).forEach(function (item) {
+	    console.log(obj[item]);
+	  });
 	}
 
 /***/ }
