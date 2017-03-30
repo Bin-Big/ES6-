@@ -63,52 +63,74 @@
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 	{
-	  // 定义
-	  var a1 = Symbol();
-	  var a2 = Symbol.for('a2');
-	  var a3 = Symbol();
-	  var a4 = Symbol.for('a2');
+	  // Set的定义
+	  var list = new Set();
+	  list.add(5);
+	  list.add(7);
 
-	  console.log(a1 === a3, a2 === a4);
-	  // 作用
+	  console.log('zize', list.size);
 	}
 
 	{
-	  var _a = Symbol();
-	  var _a2 = Symbol.for('a2');
-	  var _a3 = Symbol();
-	  var _a4 = Symbol.for('a2');
-
-	  console.log({ a1: Symbol.keyFor(_a), a2: Symbol.keyFor(_a2), a3: Symbol.keyFor(_a3), a4: Symbol.keyFor(_a4) });
+	  // Set的定义
+	  var arr = [1, 2, 3, 4, 5];
+	  var _list = new Set(arr);
+	  console.log('size', _list.size);
 	}
 
 	{
-	  var _obj;
+	  // Set的元素是唯一的
+	  var _list2 = new Set();
+	  _list2.add(1);
+	  _list2.add(2);
+	  _list2.add(1);
+	  console.log('list', _list2);
 
-	  // 使用for...in和for...of都无法遍历到Symbol值的属性，Symbol值作为对象的属性名，
-	  // 也无法通过Object.keys()、Object.getOwnPropertyNames()来获取了。
-	  // 但是，不同担心，这种平常的需求肯定是会有解决办法的。
-	  // 我们可以使用Object.getOwnPropertySymbols()方法获取一个对象上的Symbol属性名。
-	  // 也可以使用Reflect.ownKeys()返回所有类型的属性名，包括常规属性名和 Symbol属性名
-	  var _a5 = Symbol.for('a1');
-	  var _a6 = Symbol('a2');
-	  var obj = (_obj = {}, _defineProperty(_obj, _a5, 123), _defineProperty(_obj, _a6, 890), _defineProperty(_obj, 'b', 345), _defineProperty(_obj, 'c', 567), _obj);
+	  // 去重
+	  var _arr = [1, 2, 3, 1, 2];
+	  var list2 = new Set(_arr);
+	  console.log('list unique', list2);
+
+	  var arr2 = [1, 2, 3, 1, '2'];
+	  var list3 = new Set(arr2);
+	  console.log('不换转换数据类型', list3);
+	}
+
+	{
+	  // Set实例的几个方法
+	  var _arr2 = ['add', 'delete', 'clear', 'has'];
+
+	  var _list3 = new Set(_arr2);
+
+	  console.log('has', _list3.has('add'));
+	  console.log('delete', _list3.delete('add'), _list3);
+
+	  _list3.clear();
+
+	  console.log('list', _list3);
+	}
+
+	{
+	  // Set实例的读取
+	  // keys()：返回键名的遍历器
+	  // values()：返回键值的遍历器
+	  // entries()：返回键值对的遍历器
+	  // forEach()：使用回调函数遍历每个成员
+	  var _arr3 = ['add', 'delete', 'clear', 'has'];
+	  var _list4 = new Set(_arr3);
 
 	  var _iteratorNormalCompletion = true;
 	  var _didIteratorError = false;
 	  var _iteratorError = undefined;
 
 	  try {
-	    for (var _iterator = Object.entries(obj)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var _step$value = _slicedToArray(_step.value, 2),
-	          key = _step$value[0],
-	          value = _step$value[1];
+	    for (var _iterator = _list4.keys()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var key = _step.value;
 
-	      console.log(key, value);
+	      console.log('keys', key);
 	    }
+	    // 也可以省略values
 	  } catch (err) {
 	    _didIteratorError = true;
 	    _iteratorError = err;
@@ -124,13 +146,119 @@
 	    }
 	  }
 
-	  Object.getOwnPropertySymbols(obj).forEach(function (item) {
-	    console.log(obj[item]);
-	  });
+	  var _iteratorNormalCompletion2 = true;
+	  var _didIteratorError2 = false;
+	  var _iteratorError2 = undefined;
 
-	  Reflect.ownKeys(obj).forEach(function (item) {
-	    console.log(obj[item]);
+	  try {
+	    for (var _iterator2 = _list4[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	      var value = _step2.value;
+
+	      console.log('values', value);
+	    }
+	  } catch (err) {
+	    _didIteratorError2 = true;
+	    _iteratorError2 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	        _iterator2.return();
+	      }
+	    } finally {
+	      if (_didIteratorError2) {
+	        throw _iteratorError2;
+	      }
+	    }
+	  }
+
+	  var _iteratorNormalCompletion3 = true;
+	  var _didIteratorError3 = false;
+	  var _iteratorError3 = undefined;
+
+	  try {
+	    for (var _iterator3 = _list4.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	      var _step3$value = _slicedToArray(_step3.value, 2),
+	          _key = _step3$value[0],
+	          _value = _step3$value[1];
+
+	      console.log('entries', [_key, _value]);
+	    }
+	  } catch (err) {
+	    _didIteratorError3 = true;
+	    _iteratorError3 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	        _iterator3.return();
+	      }
+	    } finally {
+	      if (_didIteratorError3) {
+	        throw _iteratorError3;
+	      }
+	    }
+	  }
+
+	  _list4.forEach(function (item) {
+	    return console.log('forEach', item);
 	  });
+	}
+
+	{
+
+	  // weakSet
+	  var weakList = new WeakSet();
+	  var arg = {};
+
+	  weakList.add(document);
+	  weakList.add(arg);
+
+	  console.log('has-document', weakList.has(document));
+	  console.log('has-arg', weakList.has(arg));
+
+	  console.log('delete', weakList.delete(document), weakList);
+
+	  // 没有size属性，不能遍历，弱引用
+	}
+
+	{
+	  // JavaScript的对象（Object），
+	  // 本质上是键值对的集合（Hash结构），
+	  // 但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。
+	  var map = new Map();
+
+	  var _arr4 = ['123'];
+
+	  map.set(_arr4, 456);
+
+	  console.log('map', map, map.get(_arr4));
+	}
+
+	{
+	  // Map定义可以带参数
+	  var _map = new Map([['a', 123], ['b', 345, 'c', 456]]);
+
+	  console.log('arg', _map);
+
+	  console.log('size', _map.size);
+	  console.log('get', _map.get('a'));
+	  console.log('delete', _map.delete('a'), _map);
+	  console.log('clear', _map.clear(), _map);
+	  // keys()：返回键名的遍历器。
+	  // values()：返回键值的遍历器。
+	  // entries()：返回所有成员的遍历器。
+	  // forEach()：遍历Map的所有成员
+	}
+
+	{
+	  var weakmap = new WeakMap();
+
+	  var o = {};
+
+	  weakmap.set(o, 123);
+	  console.log('weakmap', weakmap.get(o));
+
+	  // weakmap.set('12','34');
+	  // 没有size属性，不能遍历，不能clear
 	}
 
 /***/ }
