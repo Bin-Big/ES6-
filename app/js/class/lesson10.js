@@ -91,9 +91,3 @@
   weakmap.set(o,123);
   console.log(weakmap.get(o));
 }
-
-{
-  let a1=[`<a href="#baidu.com">s</a>`];
-  document.body.innerHTML=a1[0]
-
-}
