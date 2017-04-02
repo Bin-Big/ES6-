@@ -1,58 +1,56 @@
 {
-  // 定义
-  class parent{
+  // 基本定义和生成实例
+  class Parent{
     constructor(name='mukewang'){
       this.name=name;
     }
   }
-
-  let v_parent=new parent('v');
-  console.log('name',v_parent.name);
+  let v_parent=new Parent('v');
+  console.log('构造函数和实例',v_parent);
 }
-
 
 {
   // 继承
-  class parent{
+  class Parent{
     constructor(name='mukewang'){
       this.name=name;
     }
   }
 
-  class child extends parent{
+  class Child extends Parent{
 
   }
 
-  console.log('child',new child().name);
+  console.log('继承',new Child());
 }
 
 {
-  // 继承带参数
-  class parent{
+  // 继承传递参数
+  class Parent{
     constructor(name='mukewang'){
       this.name=name;
     }
   }
 
-  class child extends parent{
+  class Child extends Parent{
     constructor(name='child'){
       super(name);
-      this.sex='male';
+      this.type='child';
     }
   }
-  let v_child=new child('v_child');
-  console.log('child',v_child);
+
+  console.log('继承传递参数',new Child('hello'));
 }
 
 {
-  // setter 和 getter
+  // getter,setter
   class Parent{
-    constructor(){
-      this.name='test';
+    constructor(name='mukewang'){
+      this.name=name;
     }
 
     get longName(){
-      return 'mk'+this.name;
+      return 'mk'+this.name
     }
 
     set longName(value){
@@ -60,32 +58,43 @@
     }
   }
 
-  let v_parent=new Parent();
-  v_parent.longName='net';
-  console.log('getter',v_parent.longName);
+  let v=new Parent();
+  console.log('getter',v.longName);
+  v.longName='hello';
+  console.log('setter',v.longName);
 }
 
 {
   // 静态方法
   class Parent{
-    constructor(name='parent'){
+    constructor(name='mukewang'){
       this.name=name;
     }
-    static longName(){
-      console.log('longName');
+
+    static tell(){
+      console.log('tell');
     }
   }
 
-  let v_parent=new Parent();
-  Parent.longName()
+  Parent.tell();
+
 }
 
 {
   // 静态属性
   class Parent{
+    constructor(name='mukewang'){
+      this.name=name;
+    }
 
+    static tell(){
+      console.log('tell');
+    }
   }
-  Parent.test='test';
 
-  console.log(new Parent().test,Parent.test);
+  Parent.type='test';
+
+  console.log('静态属性',Parent.type);
+
+
 }
