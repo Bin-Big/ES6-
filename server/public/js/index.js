@@ -61,82 +61,145 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 	{
-	  var obj = {
-	    time: '2017-03-11',
-	    name: 'net',
-	    _r: 123
+	  // 定义
+	  var parent = function parent() {
+	    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'mukewang';
+
+	    _classCallCheck(this, parent);
+
+	    this.name = name;
 	  };
 
-	  var monitor = new Proxy(obj, {
-	    // 拦截对象属性的读取
-	    get: function get(target, key) {
-	      return target[key].replace('2017', '2018');
-	    },
-
-	    // 拦截对象设置属性
-	    set: function set(target, key, value) {
-	      if (key === 'name') {
-	        return target[key] = value;
-	      } else {
-	        return target[key];
-	      }
-	    },
-
-	    // 拦截key in object操作
-	    has: function has(target, key) {
-	      if (key === 'name') {
-	        return target[key];
-	      } else {
-	        return false;
-	      }
-	    },
-
-	    // 拦截delete
-	    deleteProperty: function deleteProperty(target, key) {
-	      if (key.indexOf('_') > -1) {
-	        delete target[key];
-	        return true;
-	      } else {
-	        return target[key];
-	      }
-	    },
-
-	    // 拦截Object.keys,Object.getOwnPropertySymbols,Object.getOwnPropertyNames
-	    ownKeys: function ownKeys(target) {
-	      return Object.keys(target).filter(function (item) {
-	        return item != 'time';
-	      });
-	    }
-	  });
-
-	  console.log('get', monitor.time);
-
-	  monitor.time = '2018';
-	  monitor.name = 'mukewang';
-	  console.log('set', monitor.time, monitor);
-
-	  console.log('has', 'name' in monitor, 'time' in monitor);
-
-	  // delete monitor.time;
-	  // console.log('delete',monitor);
-	  //
-	  // delete monitor._r;
-	  // console.log('delete',monitor);
-	  console.log('ownKeys', Object.keys(monitor));
+	  var v_parent = new parent('v');
+	  console.log('name', v_parent.name);
 	}
 
 	{
-	  var _obj = {
-	    time: '2017-03-11',
-	    name: 'net',
-	    _r: 123
+	  // 继承
+	  var _parent = function _parent() {
+	    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'mukewang';
+
+	    _classCallCheck(this, _parent);
+
+	    this.name = name;
 	  };
 
-	  console.log('Reflect get', Reflect.get(_obj, 'time'));
-	  Reflect.set(_obj, 'name', 'mukewang');
-	  console.log(_obj);
-	  console.log('has', Reflect.has(_obj, 'name'));
+	  var child = function (_parent2) {
+	    _inherits(child, _parent2);
+
+	    function child() {
+	      _classCallCheck(this, child);
+
+	      return _possibleConstructorReturn(this, (child.__proto__ || Object.getPrototypeOf(child)).apply(this, arguments));
+	    }
+
+	    return child;
+	  }(_parent);
+
+	  console.log('child', new child().name);
+	}
+
+	{
+	  // 继承带参数
+	  var _parent3 = function _parent3() {
+	    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'mukewang';
+
+	    _classCallCheck(this, _parent3);
+
+	    this.name = name;
+	  };
+
+	  var _child = function (_parent4) {
+	    _inherits(_child, _parent4);
+
+	    function _child() {
+	      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'child';
+
+	      _classCallCheck(this, _child);
+
+	      var _this2 = _possibleConstructorReturn(this, (_child.__proto__ || Object.getPrototypeOf(_child)).call(this, name));
+
+	      _this2.sex = 'male';
+	      return _this2;
+	    }
+
+	    return _child;
+	  }(_parent3);
+
+	  var v_child = new _child('v_child');
+	  console.log('child', v_child);
+	}
+
+	{
+	  // setter 和 getter
+	  var Parent = function () {
+	    function Parent() {
+	      _classCallCheck(this, Parent);
+
+	      this.name = 'test';
+	    }
+
+	    _createClass(Parent, [{
+	      key: 'longName',
+	      get: function get() {
+	        return 'mk' + this.name;
+	      },
+	      set: function set(value) {
+	        this.name = value;
+	      }
+	    }]);
+
+	    return Parent;
+	  }();
+
+	  var _v_parent = new Parent();
+	  _v_parent.longName = 'net';
+	  console.log('getter', _v_parent.longName);
+	}
+
+	{
+	  // 静态方法
+	  var _Parent = function () {
+	    function _Parent() {
+	      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'parent';
+
+	      _classCallCheck(this, _Parent);
+
+	      this.name = name;
+	    }
+
+	    _createClass(_Parent, null, [{
+	      key: 'longName',
+	      value: function longName() {
+	        console.log('longName');
+	      }
+	    }]);
+
+	    return _Parent;
+	  }();
+
+	  var _v_parent2 = new _Parent();
+	  _Parent.longName();
+	}
+
+	{
+	  // 静态属性
+	  var _Parent2 = function _Parent2() {
+	    _classCallCheck(this, _Parent2);
+	  };
+
+	  _Parent2.test = 'test';
+
+	  console.log(new _Parent2().test, _Parent2.test);
 	}
 
 /***/ }
