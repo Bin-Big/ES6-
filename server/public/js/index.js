@@ -61,80 +61,106 @@
 
 	'use strict';
 
-	{
-	  // 基本定义
-	  var ajax = function ajax(callback) {
-	    console.log('执行');
-	    setTimeout(function () {
-	      callback && callback();
-	    }, 1000);
-	  };
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	  ajax(function () {
-	    console.log('timeout1');
-	  });
+	{
+	  // Iterator不是array,也不是set,不是map,
+	  // 它不是一个实体，而是一种访问机制，
+	  // 是一个用来访问某个对象的接口规范,
+	  // 为各种不同的数据结构提供统一的访问机制。
+	  // 任何数据结构只要部署Iterator接口，
+	  // 就可以完成遍历操作（即依次处理该数据结构的成员）。
+	  var arr = ['hello', 'world'];
+	  var map = arr[Symbol.iterator]();
+	  console.log(map.next());
+	  console.log(map.next());
+	  console.log(map.next());
 	}
 
 	{
-	  // promise
-	  var _ajax = function _ajax() {
-	    console.log('执行2');
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  };
-
-	  _ajax().then(function () {
-	    console.log('promise', 'timeout2');
-	  });
-	}
-
-	{
-	  // 多步调用
-	  var _ajax2 = function _ajax2() {
-	    console.log('执行3');
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  };
-	  _ajax2().then(function () {
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  }).then(function () {
-	    console.log('timeout3');
-	  });
-	}
-
-	{
-	  var _ajax3 = function _ajax3(num) {
-	    console.log('执行3');
-	    return new Promise(function (resolve, reject) {
-	      if (num > 5) {
-	        resolve();
-	      } else {
-	        throw new Error('出错了');
+	  // 如何自定义Iterator
+	  var obj = _defineProperty({
+	    start: [1, 3, 2],
+	    end: [7, 9, 8]
+	  }, Symbol.iterator, function () {
+	    var self = this;
+	    var index = 0;
+	    var arr = self.start.concat(self.end);
+	    var len = arr.length;
+	    return {
+	      next: function next() {
+	        if (index < len) {
+	          return {
+	            value: arr[index++],
+	            done: false
+	          };
+	        } else {
+	          return {
+	            value: arr[index++],
+	            done: true
+	          };
+	        }
 	      }
-	    });
-	  };
-
-	  _ajax3(6).then(function () {
-	    console.log(6);
-	  }).catch(function (err) {
-	    console.log('catch', err);
+	    };
 	  });
 
-	  _ajax3(3).then(function () {
-	    console.log(3);
-	  }).catch(function (err) {
-	    console.log('catch', err);
-	  });
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = obj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var key = _step.value;
+
+	      console.log(key);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	}
+
+	{
+	  // for of
+	  var _arr = ['hello', 'world'];
+	  var _iteratorNormalCompletion2 = true;
+	  var _didIteratorError2 = false;
+	  var _iteratorError2 = undefined;
+
+	  try {
+	    for (var _iterator2 = _arr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	      var value = _step2.value;
+
+	      console.log(value);
+	    }
+	  } catch (err) {
+	    _didIteratorError2 = true;
+	    _iteratorError2 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	        _iterator2.return();
+	      }
+	    } finally {
+	      if (_didIteratorError2) {
+	        throw _iteratorError2;
+	      }
+	    }
+	  }
+
+	  for (var _key in _arr) {
+	    console.log(_key);
+	  }
 	}
 
 /***/ }
