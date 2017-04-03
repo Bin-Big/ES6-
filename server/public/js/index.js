@@ -55,7 +55,14 @@
 
 	__webpack_require__(2);
 
-	__webpack_require__(300);
+	var _lesson = __webpack_require__(300);
+
+	var _lesson2 = _interopRequireDefault(_lesson);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// import './class/lesson1';
+	console.log(_lesson2.default);
 
 /***/ },
 /* 2 */
@@ -8876,97 +8883,49 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-	  var desc = {};
-	  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-	    desc[key] = descriptor[key];
-	  });
-	  desc.enumerable = !!desc.enumerable;
-	  desc.configurable = !!desc.configurable;
+	// export let A=123;
+	// export function test(){
+	//   console.log('test');
+	// }
+	// export class Test{
+	//   test(){
+	//     console.log('class Test');
+	//   }
+	// }
 
-	  if ('value' in desc || desc.initializer) {
-	    desc.writable = true;
+	var A = '123';
+	var test = function test() {
+	  console.log('test');
+	};
+
+	var Test = function () {
+	  function Test() {
+	    _classCallCheck(this, Test);
 	  }
 
-	  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-	    return decorator(target, property, desc) || desc;
-	  }, desc);
-
-	  if (context && desc.initializer !== void 0) {
-	    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-	    desc.initializer = undefined;
-	  }
-
-	  if (desc.initializer === void 0) {
-	    Object['define' + 'Property'](target, property, desc);
-	    desc = null;
-	  }
-
-	  return desc;
-	}
-
-	{
-	  var _desc, _value, _class;
-
-	  // npm install babel-plugin-transform-decorators-legacy --save-dev
-	  // 装饰器模式
-	  // 装饰器(Decorator)就是一个函数，
-	  // 她接受另一个函数作为参数，
-	  // 然后在不直接修改这个函数的情况下，
-	  // 扩展该函数的行为，
-	  // 最终再将该函数返回
-	  //
-	  // 此时，修饰器函数一共可以接受三个参数，
-	  // 第一个参数是所要修饰的目标对象，
-	  // 第二个参数是所要修饰的属性名，
-	  // 第三个参数是该属性的描述对象。
-	  //
-	  // core-decorators.js 可以安装npm install core-decorators
-	  var readonly = function readonly(target, name, descriptor) {
-	    descriptor.writable = false;
-	    return descriptor;
-	  };
-
-	  var Test = (_class = function () {
-	    function Test() {
-	      _classCallCheck(this, Test);
+	  _createClass(Test, [{
+	    key: 'test',
+	    value: function test() {
+	      console.log('class test');
 	    }
+	  }]);
 
-	    _createClass(Test, [{
-	      key: 'time',
-	      value: function time() {
-	        return '2017-03-31';
-	      }
-	    }]);
+	  return Test;
+	}();
 
-	    return Test;
-	  }(), (_applyDecoratedDescriptor(_class.prototype, 'time', [readonly], Object.getOwnPropertyDescriptor(_class.prototype, 'time'), _class.prototype)), _class);
-
-
-	  var test = new Test();
-	  // test.time=function(){
-	  //   console.log('readonly false');
-	  // };
-	  console.log(test.time());
-	}
-
-	{
-	  var _class2;
-
-	  var typename = function typename(target, name, descriptor) {
-	    target.myname = 'hello';
-	  };
-
-	  var _Test = typename(_class2 = function _Test() {
-	    _classCallCheck(this, _Test);
-	  }) || _class2;
-
-	  console.log('类修饰符', _Test.myname);
-	}
+	exports.default = {
+	  A: A,
+	  test: test,
+	  Test: Test
+	};
 
 /***/ }
 /******/ ]);

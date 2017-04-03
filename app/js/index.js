@@ -1,3 +1,5 @@
 // import './class/lesson1';
 import 'babel-polyfill';
-import './class/lesson16';
+import Lesson from './class/lesson17';
+
+console.log(Lesson);
