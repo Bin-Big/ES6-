@@ -8872,143 +8872,100 @@
 
 /***/ },
 /* 300 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
-	{
-	  // 什么是generator函数？generator函数是什么呢？
-	  // 其实它还是一个函数，
-	  // 只是跟我们es5中的函数有两点区别：
-	  // 一是形式写法上的区别，
-	  // 二是调用之后内部的执行过程的区别。
-	  var tell = regeneratorRuntime.mark(function tell() {
-	    return regeneratorRuntime.wrap(function tell$(_context) {
-	      while (1) {
-	        switch (_context.prev = _context.next) {
-	          case 0:
-	            _context.next = 2;
-	            return 'a';
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	          case 2:
-	            _context.next = 4;
-	            return 'b';
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	          case 4:
-	            return _context.abrupt('return', 'c');
-
-	          case 5:
-	          case 'end':
-	            return _context.stop();
-	        }
-	      }
-	    }, tell, this);
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+	  var desc = {};
+	  Object['ke' + 'ys'](descriptor).forEach(function (key) {
+	    desc[key] = descriptor[key];
 	  });
+	  desc.enumerable = !!desc.enumerable;
+	  desc.configurable = !!desc.configurable;
 
-	  var k = tell();
-	  console.log(k.next());
-	  console.log(k.next());
-	  console.log(k.next());
-	  console.log(k.next());
-	}
-
-	{
-	  // 与Iterator接口的关系
-	  // 任意一个对象的iterator接口都是部署在了Symbol.iterator属性，
-	  // 由于generator函数就是遍历器生成函数，
-	  // 所以可以直接把它赋值给Symbol.iterator，
-	  // 从而使的该对象具有Iterator接口
-	  var obj = {};
-	  obj[Symbol.iterator] = regeneratorRuntime.mark(function _callee() {
-	    return regeneratorRuntime.wrap(function _callee$(_context2) {
-	      while (1) {
-	        switch (_context2.prev = _context2.next) {
-	          case 0:
-	            _context2.next = 2;
-	            return 1;
-
-	          case 2:
-	            _context2.next = 4;
-	            return 2;
-
-	          case 4:
-	            _context2.next = 6;
-	            return 3;
-
-	          case 6:
-	          case 'end':
-	            return _context2.stop();
-	        }
-	      }
-	    }, _callee, this);
-	  });
-
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
-
-	  try {
-	    for (var _iterator = obj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var value = _step.value;
-
-	      console.log('value', value);
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
+	  if ('value' in desc || desc.initializer) {
+	    desc.writable = true;
 	  }
+
+	  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+	    return decorator(target, property, desc) || desc;
+	  }, desc);
+
+	  if (context && desc.initializer !== void 0) {
+	    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+	    desc.initializer = undefined;
+	  }
+
+	  if (desc.initializer === void 0) {
+	    Object['define' + 'Property'](target, property, desc);
+	    desc = null;
+	  }
+
+	  return desc;
 	}
 
 	{
-	  // 状态机
-	  var state = regeneratorRuntime.mark(function state() {
-	    return regeneratorRuntime.wrap(function state$(_context3) {
-	      while (1) {
-	        switch (_context3.prev = _context3.next) {
-	          case 0:
-	            if (false) {
-	              _context3.next = 9;
-	              break;
-	            }
+	  var _desc, _value, _class;
 
-	            _context3.next = 3;
-	            return 'A';
+	  // npm install babel-plugin-transform-decorators-legacy --save-dev
+	  // 装饰器模式
+	  // 装饰器(Decorator)就是一个函数，
+	  // 她接受另一个函数作为参数，
+	  // 然后在不直接修改这个函数的情况下，
+	  // 扩展该函数的行为，
+	  // 最终再将该函数返回
+	  //
+	  // 此时，修饰器函数一共可以接受三个参数，
+	  // 第一个参数是所要修饰的目标对象，
+	  // 第二个参数是所要修饰的属性名，
+	  // 第三个参数是该属性的描述对象。
+	  //
+	  // core-decorators.js 可以安装npm install core-decorators
+	  var readonly = function readonly(target, name, descriptor) {
+	    descriptor.writable = false;
+	    return descriptor;
+	  };
 
-	          case 3:
-	            _context3.next = 5;
-	            return 'B';
+	  var Test = (_class = function () {
+	    function Test() {
+	      _classCallCheck(this, Test);
+	    }
 
-	          case 5:
-	            _context3.next = 7;
-	            return 'C';
-
-	          case 7:
-	            _context3.next = 0;
-	            break;
-
-	          case 9:
-	          case 'end':
-	            return _context3.stop();
-	        }
+	    _createClass(Test, [{
+	      key: 'time',
+	      value: function time() {
+	        return '2017-03-31';
 	      }
-	    }, state, this);
-	  });
-	  var status = state();
-	  console.log(status.next());
-	  console.log(status.next());
-	  console.log(status.next());
-	  console.log(status.next());
-	  console.log(status.next());
+	    }]);
+
+	    return Test;
+	  }(), (_applyDecoratedDescriptor(_class.prototype, 'time', [readonly], Object.getOwnPropertyDescriptor(_class.prototype, 'time'), _class.prototype)), _class);
+
+
+	  var test = new Test();
+	  // test.time=function(){
+	  //   console.log('readonly false');
+	  // };
+	  console.log(test.time());
+	}
+
+	{
+	  var _class2;
+
+	  var typename = function typename(target, name, descriptor) {
+	    target.myname = 'hello';
+	  };
+
+	  var _Test = typename(_class2 = function _Test() {
+	    _classCallCheck(this, _Test);
+	  }) || _class2;
+
+	  console.log('类修饰符', _Test.myname);
 	}
 
 /***/ }
