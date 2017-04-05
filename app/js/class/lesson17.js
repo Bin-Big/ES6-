@@ -1,27 +1,27 @@
-
 // export let A=123;
+//
 // export function test(){
 //   console.log('test');
 // }
-// export class Test{
+//
+// export class Hello{
 //   test(){
-//     console.log('class Test');
+//     console.log('class');
 //   }
 // }
 
-let A='123';
+let A=123;
 let test=function(){
   console.log('test');
-};
-
-class Test{
+}
+class Hello{
   test(){
-    console.log('class test');
+    console.log('class');
   }
 }
 
 export default {
   A,
   test,
-  Test
+  Hello
 }
