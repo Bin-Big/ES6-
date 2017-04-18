@@ -1,13 +1,6 @@
-// import './class/lesson1';
-// import 'babel-polyfill';
-// import './class/lesson17';
-//
-// import {A,test,Hello} from './class/lesson17';
-// import {A} from './class/lesson17';
-// import * as lesson from './class/lesson17';
-//
-import Lesson17 from './class/lesson17';
+import 'babel-polyfill';
+import Lottery from './lottery';
 
-// console.log(A,test,Hello);
-// console.log(lesson.A,lesson.test);
-console.log(Lesson17.A);
+const syy=new Lottery();
+
+console.log(syy);
