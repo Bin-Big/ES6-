@@ -92,57 +92,63 @@
   console.log(weakmap.get(o));
 }
 
-// 数据结构的4个特性：增，查，改，删
-// map和数组的对比
 {
+  // 数据结构横向对比，增，查，改，删
   let map=new Map();
   let array=[];
-
   // 增
   map.set('t',1);
-  array.push({t:1});//unshift
-  console.log(map,array);
+  array.push({t:1});
+
+  console.info('map-array',map,array);
+
   // 查
   let map_exist=map.has('t');
-  let array_exist=array.find(item=> item.t)
-  console.log(map_exist,array_exist);
+  let array_exist=array.find(item=>item.t);
+  console.info('map-array',map_exist,array_exist);
+
   // 改
   map.set('t',2);
-  array.forEach(item=>item.t?item.t=2:'')
-  console.log(map,array);
+  array.forEach(item=>item.t?item.t=2:'');
+  console.info('map-array-modify',map,array);
+
   // 删
   map.delete('t');
   let index=array.findIndex(item=>item.t);
   array.splice(index,1);
-  console.log(map,array);
-
+  console.info('map-array-empty',map,array);
 }
-// set和数组的对比
+
 {
+  // set和array的对比
   let set=new Set();
   let array=[];
 
   // 增
-  set.add({'t':1});
-  array.push({t:1});//unshift
-  console.log(set,array);
+  set.add({t:1});
+  array.push({t:1});
+
+  console.info('set-array',set,array);
+
   // 查
-  let set_exist=set.has('t');
-  let array_exist=array.find(item=> item.t)
-  console.log(set_exist,array_exist);
+  let set_exist=set.has({t:1});
+  let array_exist=array.find(item=>item.t);
+  console.info('set-array',set_exist,array_exist);
+
   // 改
   set.forEach(item=>item.t?item.t=2:'');
-  array.forEach(item=>item.t?item.t=2:'')
-  console.log(set,array);
+  array.forEach(item=>item.t?item.t=2:'');
+  console.info('set-array-modify',set,array);
+
   // 删
-  set.forEach(item=>item.t?set.delete(item):'')
+  set.forEach(item=>item.t?set.delete(item):'');
   let index=array.findIndex(item=>item.t);
   array.splice(index,1);
-  console.log(set,array);
+  console.info('set-array-empty',set,array);
 }
 
-//map,set和Object的对比
 {
+  // map,set,object对比
   let item={t:1};
   let map=new Map();
   let set=new Set();
@@ -152,23 +158,25 @@
   map.set('t',1);
   set.add(item);
   obj['t']=1;
+
+  console.info('map-set-obj',obj,map,set);
+
   // 查
-  console.log({
+  console.info({
     map_exist:map.has('t'),
-    set_exist:map.has(item),
+    set_exist:set.has(item),
     obj_exist:'t' in obj
-  });
+  })
+
   // 改
   map.set('t',2);
   item.t=2;
   obj['t']=2;
-  console.log(map,set,obj);
-  // 删
+  console.info('map-set-obj-modify',obj,map,set);
+
+  // 删除
   map.delete('t');
   set.delete(item);
   delete obj['t'];
-  console.log(map,set,obj);
+  console.info('map-set-obj-empty',obj,map,set);
 }
-
-// 总结
-// 如果如果不是纯数组类型而且数据结构复杂，优先使用Map和Set；如果对数据元素没有重复性要求优先使用Map；

@@ -73,6 +73,10 @@
   }
 
   let star=residue(5);
+  let btn=document.createElement('button');
+  btn.id='start';
+  btn.textContent='抽奖';
+  document.body.appendChild(btn);
   document.getElementById('start').addEventListener('click',function(){
     star.next();
   },false);

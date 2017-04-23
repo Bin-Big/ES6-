@@ -71,44 +71,52 @@
   console.log('has',Reflect.has(obj,'name'));
 }
 
-// http://pinggod.com/2016/%E5%AE%9E%E4%BE%8B%E8%A7%A3%E6%9E%90-ES6-Proxy-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/
-{
-  function validator(target, validator) {
-    return new Proxy(target, {
-        _validator: validator,
-        set(target, key, value, proxy) {
-            if (target.hasOwnProperty(key)) {
-                let validator = this._validator[key];
-                if (!!validator(value)) {
-                    return Reflect.set(target, key, value, proxy);
-                } else {
-                    throw Error(`Cannot set ${key} to ${value}. Invalid.`);
-                }
-            } else {
-                throw Error(`${key} is not a valid property`)
-            }
-        }
-    });
-  };
 
-  const personValidators = {
-    name(val) {
-        return typeof val === 'string';
+{
+  function validator(target,validator){
+    return new Proxy(target,{
+      _validator:validator,
+      set(target,key,value,proxy){
+        if(target.hasOwnProperty(key)){
+          let va=this._validator[key];
+          if(!!va(value)){
+            return Reflect.set(target,key,value,proxy)
+          }else{
+            throw Error(`不能设置${key}到${value}`)
+          }
+        }else{
+          throw Error(`${key} 不存在`)
+        }
+      }
+    })
+  }
+
+  const personValidators={
+    name(val){
+      return typeof val==='string'
     },
-    age(val) {
-        return typeof val === 'number' && val > 18;
+    age(val){
+      return typeof val === 'number' && val>18
+    },
+    mobile(val){
+      
     }
   }
-  class Person {
-      constructor(name, age) {
-          this.name = name;
-          this.age = age;
-          return validator(this, personValidators);
-      }
+
+  class Person{
+    constructor(name,age){
+      this.name=name;
+      this.age=age;
+      this.mobile='1111';
+      return validator(this,personValidators)
+    }
   }
-  const person = new Person('Hello', 30);
-  person.name = 'test';
-  person.age = 28;
-  person.age = 15;
-  console.log(person);
+
+  const person=new Person('lilei',30);
+
+  console.info(person);
+
+  person.name='Han mei mei';
+
+  console.info(person);
 }
