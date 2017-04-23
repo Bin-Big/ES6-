@@ -73,3 +73,58 @@
     console.log('catch',err);
   });
 }
+
+{
+  function loadImg(src){
+    return new Promise( (resolve,reject)=> {
+        var img = document.createElement("img");
+        img.src = src;
+        img.onload = function(){
+           resolve(img);
+        }
+        img.onerror = function(err){
+           reject(err);
+        }
+    });
+  }
+  function showImgs(imgs){
+    imgs.forEach(function(img){
+         document.body.appendChild(img);
+     });
+  }
+
+  Promise.all([
+    loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), //加载图片
+    loadImg('http://i4.buimg.com/567571/2b07ee25b08930ba.png'),
+    loadImg('http://i2.muimg.com/567571/5eb8190d6b2a1c9c.png')
+  ]).then(showImgs); //显示图片
+
+
+}
+
+{
+  function loadImg(src){
+    return new Promise( (resolve,reject)=> {
+        var img = document.createElement("img");
+        img.src = src;
+        img.onload = function(){
+           resolve(img);
+        }
+        img.onerror = function(err){
+           reject(err);
+        }
+    });
+  }
+
+  function showImg(img){
+    let p=document.createElement('p');
+    p.appendChild(img);
+    document.body.appendChild(p);
+  }
+
+  Promise.race([
+    loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), //加载图片
+    loadImg('http://i4.buimg.com/567571/2b07ee25b08930ba.png'),
+    loadImg('http://i2.muimg.com/567571/5eb8190d6b2a1c9c.png')
+  ]).then(showImg); //显示图片
+}

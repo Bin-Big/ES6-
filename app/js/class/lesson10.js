@@ -91,3 +91,84 @@
   weakmap.set(o,123);
   console.log(weakmap.get(o));
 }
+
+// 数据结构的4个特性：增，查，改，删
+// map和数组的对比
+{
+  let map=new Map();
+  let array=[];
+
+  // 增
+  map.set('t',1);
+  array.push({t:1});//unshift
+  console.log(map,array);
+  // 查
+  let map_exist=map.has('t');
+  let array_exist=array.find(item=> item.t)
+  console.log(map_exist,array_exist);
+  // 改
+  map.set('t',2);
+  array.forEach(item=>item.t?item.t=2:'')
+  console.log(map,array);
+  // 删
+  map.delete('t');
+  let index=array.findIndex(item=>item.t);
+  array.splice(index,1);
+  console.log(map,array);
+
+}
+// set和数组的对比
+{
+  let set=new Set();
+  let array=[];
+
+  // 增
+  set.add({'t':1});
+  array.push({t:1});//unshift
+  console.log(set,array);
+  // 查
+  let set_exist=set.has('t');
+  let array_exist=array.find(item=> item.t)
+  console.log(set_exist,array_exist);
+  // 改
+  set.forEach(item=>item.t?item.t=2:'');
+  array.forEach(item=>item.t?item.t=2:'')
+  console.log(set,array);
+  // 删
+  set.forEach(item=>item.t?set.delete(item):'')
+  let index=array.findIndex(item=>item.t);
+  array.splice(index,1);
+  console.log(set,array);
+}
+
+//map,set和Object的对比
+{
+  let item={t:1};
+  let map=new Map();
+  let set=new Set();
+  let obj={};
+
+  // 增
+  map.set('t',1);
+  set.add(item);
+  obj['t']=1;
+  // 查
+  console.log({
+    map_exist:map.has('t'),
+    set_exist:map.has(item),
+    obj_exist:'t' in obj
+  });
+  // 改
+  map.set('t',2);
+  item.t=2;
+  obj['t']=2;
+  console.log(map,set,obj);
+  // 删
+  map.delete('t');
+  set.delete(item);
+  delete obj['t'];
+  console.log(map,set,obj);
+}
+
+// 总结
+// 如果如果不是纯数组类型而且数据结构复杂，优先使用Map和Set；如果对数据元素没有重复性要求优先使用Map；
