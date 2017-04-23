@@ -59,14 +59,15 @@
 //   console.log(status.next());
 // }
 //
+
 {
-  // 抽奖
   let draw=function(count){
-    // 具体抽奖的逻辑
-    console.log(`剩余${count}次`);
+    //具体抽奖逻辑
+    console.info(`剩余${count}次`)
   }
+
   let residue=function* (count){
-    while(count>0){
+    while (count>0) {
       count--;
       yield draw(count);
     }
@@ -79,8 +80,7 @@
   document.body.appendChild(btn);
   document.getElementById('start').addEventListener('click',function(){
     star.next();
-  },false);
-
+  },false)
 }
 
 {
@@ -88,25 +88,25 @@
   let ajax=function* (){
     yield new Promise(function(resolve,reject){
       setTimeout(function () {
-        resolve({code:0});
-      }, 500);
+        resolve({code:0})
+      }, 200);
     })
   }
 
   let pull=function(){
     let genertaor=ajax();
     let step=genertaor.next();
-    console.log(step);
     step.value.then(function(d){
       if(d.code!=0){
         setTimeout(function () {
-          console.log('wait');
+          console.info('wait');
           pull()
         }, 1000);
-      }else {
-        console.log(d);
+      }else{
+        console.info(d);
       }
     })
   }
-  pull()
+
+  pull();
 }
