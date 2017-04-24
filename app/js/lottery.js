@@ -70,7 +70,7 @@ class Lottery extends mix(Base,Calculate,Interface,Timer){
           self.getOpenCode(self.issue).then(function(res){
 
           })
-        }, 5000);
+        }, 500);
       })
     })
   }
